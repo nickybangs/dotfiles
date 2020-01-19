@@ -1,0 +1,1 @@
+/Users/nickybangs/.spacemacs
