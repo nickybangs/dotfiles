@@ -30,15 +30,28 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(python 
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup nil
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t)
      better-defaults
+     lsp
+     dap
+     (python :variables
+             python-backend 'lsp
+             ;; python-tab-width 4
+             python-fill-column 99
+             python-formatter 'yapf
+             python-format-on-save t
+             python-sort-imports-on-save t
+             python-pipenv-activate t)
      emacs-lisp
      git
      markdown
@@ -48,14 +61,14 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
+     syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(ob-async)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -315,13 +328,14 @@ you should place your code here."
                              ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/someday.org" :level . 1)
                              ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/tickler.org" :maxlevel . 2)
                              ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/lists.org" :maxlevel . 2)
-                             ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/reference.org" :maxlevel . 2)
                              ))
 
   (setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
-  (setq org-image-actual-width (/ (display-pixel-width) 3))
+  (setq org-agenda-files (directory-files-recursively "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents" "\.org$"))
 
+  (require 'ob-async)
+  (setq ob-async-no-async-languages-alist '("ipython"))
 
   )
 
@@ -351,9 +365,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/gtd.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/insurance.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/lists.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/orgmode_tutorial.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/prod.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/python_layer.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/reference.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/someday.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/spacemacs_abs_min.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/tickler.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/todo.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/tutorial.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/wordcraft.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/a/aws.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/b/bike.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/b/birthdays.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/c/car-stuff.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/c/cb.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/d/datavis.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/d/deeplearning.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/e/elisp.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/f/fanduel.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/f/fastai.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/f/feedback.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/g/groceries.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/g/gtd_cheatsheet.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/o/orgmode.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/p/passwords.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/p/practical_engineering.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/p/pretesting.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/p/python.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/r/raspberrypi.org" "/Users/nickybangs/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/reference/t/tickets.org")))
+ '(org-babel-load-languages (quote ((python . t) (emacs-lisp . t) (shell . t))))
+ '(org-babel-no-eval-on-ctrl-c-ctrl-c nil)
  '(org-capture-templates
    (quote
     (("" "" entry
@@ -362,6 +375,7 @@ This function is called at the very end of Spacemacs initialization."
      ("i" "inbox" entry
       (file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org")
       (file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/gtd_temp.txt")))))
+ '(org-confirm-babel-evaluate nil)
  '(org-outline-path-complete-in-steps nil)
  '(org-refile-use-outline-path (quote file))
  '(package-selected-packages
